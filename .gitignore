@@ -1,0 +1,63 @@
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+# IMPORTANT: Never commit your secret keys!
+.env
+.env.*
+
+# Node.js dependencies and logs
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+logs/
+*.log
+
+# Build output
+build/
+dist/
+.next/
+.out/
+
+# Python dependencies and artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.eggs/
+*.egg-info/
+*.egg
+
+# Mobile app specific
+# Android
+android/app/build/
+android/app/.cxx/
+android/.gradle/
+# iOS
+ios/build/
+ios/Pods/
+
+# Test reports
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.bak
+*.orig

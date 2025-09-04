@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { 
   TrendingUp, 
   Tree, 
@@ -100,50 +100,26 @@ const Dashboard = () => {
           <div className="px-4 py-5 sm:p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Project Locations</h3>
             <div className="h-96 rounded-lg overflow-hidden">
-              <Map
-                {...viewState}
-                onMove={evt => setViewState(evt.viewState)}
-                mapStyle="mapbox://styles/mapbox/light-v11"
-                mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-              >
-                {projects.map((project) => (
-                  <Marker
-                    key={project.id}
-                    longitude={project.longitude}
-                    latitude={project.latitude}
-                    anchor="bottom"
-                    onClick={e => {
-                      e.originalEvent.stopPropagation();
-                      setSelectedProject(project);
-                    }}
-                  >
-                    <div className={`w-6 h-6 rounded-full border-2 border-white shadow-lg ${
-                      project.isVerified ? 'bg-green-500' : 'bg-yellow-500'
-                    }`} />
-                  </Marker>
-                ))}
-
-                {selectedProject && (
-                  <Popup
-                    longitude={selectedProject.longitude}
-                    latitude={selectedProject.latitude}
-                    anchor="bottom"
-                    onClose={() => setSelectedProject(null)}
-                    className="z-10"
-                  >
-                    <div className="p-2">
-                      <h3 className="font-semibold text-sm">{selectedProject.name}</h3>
-                      <p className="text-xs text-gray-600">{selectedProject.location}</p>
-                      <p className="text-xs text-gray-600">
-                        Area: {(selectedProject.totalArea / 10000).toFixed(2)} ha
-                      </p>
-                      <p className="text-xs text-gray-600">
-                        Status: {selectedProject.isVerified ? 'Verified' : 'Pending'}
-                      </p>
-                    </div>
-                  </Popup>
-                )}
-              </Map>
+              <MapContainer center={[20.5937, 78.9629]} zoom={5} style={{ height: '100%', width: '100%' }}>
+  <TileLayer
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  />
+  {projects.map((project) => (
+    <Marker
+      key={project.id}
+      position={[project.latitude, project.longitude]}
+    >
+      <Popup>
+        <div className="p-2">
+          <h3 className="font-semibold text-sm">{project.name}</h3>
+          <p className="text-xs text-gray-600">{project.location}</p>
+          {/* ... other details ... */}
+        </div>
+      </Popup>
+    </Marker>
+  ))}
+</MapContainer>
             </div>
           </div>
         </div>
